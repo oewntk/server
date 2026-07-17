@@ -78,7 +78,13 @@
             <artifactId>ktor-serialization-kotlinx-json-jvm</artifactId>
             <version>${ktor.version}</version>
         </dependency>
+        <!-- Ktor Server Call Logging Plugin -->
         <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-call-logging-jvm</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <!-- Logback Classic (acts as the SLF4J engine) -->     <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.5.35</version>
@@ -106,9 +112,31 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- Core Ktor Client -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-core-jvm</artifactId>
+            <version>${ktor.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Asynchronous engine -->
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-client-cio-jvm</artifactId>
+            <version>${ktor.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Body mapping plugin -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-content-negotiation</artifactId>
+            <version>${ktor.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Logging plugin -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-logging</artifactId>
             <version>${ktor.version}</version>
             <scope>test</scope>
         </dependency>
