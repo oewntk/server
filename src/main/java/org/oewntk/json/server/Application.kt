@@ -13,13 +13,15 @@ import org.oewntk.yaml.`in`.Factory as YamlFactory
 
 lateinit var model: Model
 
-// Routing, plugins, and application setup go here
+/**
+ * Routing, plugins, and application setup
+ */
 fun Application.module() {
 
+    // data configuration
     val modelPath = environment.config.propertyOrNull("model.path")?.getString()
     val modelType = environment.config.propertyOrNull("model.type")?.getString()
     val modelSubtype = environment.config.propertyOrNull("model.subtype")?.getString()
-
     println("[Args] $modelPath $modelType $modelSubtype")
     when (modelType) {
         "json", "JSON" -> {
@@ -42,6 +44,9 @@ fun Application.module() {
     }
 }
 
+/**
+ * Logging
+ */
 fun Application.configureLogging() {
     install(CallLogging) {
         // Set the log level for HTTP calls

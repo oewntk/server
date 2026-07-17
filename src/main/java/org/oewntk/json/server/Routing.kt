@@ -43,6 +43,16 @@ fun Application.configureRouting() {
                 ?.let { call.respond(it) }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
+
+        // GET /api/lemma/{lemma} Full synset records for a lemma. Returns the full synset record (definitions, relations, other members, ...) for every synset that has a sense for the exact given lemma (across every part of speech).
+        // GET /api/synset/{id} Full synset record by id. The synset, or null if no synset has that id.
+        // GET /api/by_lemma/{lemma} Synset ids for a lemma. Like /api/lemma/{lemma}, but returns just the matching synset ids instead of the full synset record for each.
+
+        // GET /api/autocomplete/{query} Search-as-you-type suggestions. Matches query as a prefix against lemmas, bare synset ids (with or without the oewn- prefix used in the RDF/XML/Turtle exports), and ILIs. Results are sorted case-insensitively by display text.
+
+        // GET /api/senses/{id}/concordance Corpus concordance for a synset. Matches query as a prefix against lemmas, bare synset ids (with or without the oewn- prefix used in the RDF/XML/Turtle exports), and ILIs. Results are sorted case-insensitively by display text.
+        // GET /api/senses/{id}/count Approximate corpus occurrence count for a synset. One page of keyword-in-context (KWIC) rows from the Semcor corpus for every sense tagged with this synset id. page is 0-indexed and clamps to the last page rather than erroring if out of range.
+        // GET /api/senses/{id} Corpus document ids for a synset. Sorted, deduplicated ids of every Semcor document containing at least one token tagged with this synset id. Documents where the only occurrence is packed into a ;-joined multi-key token are not found by the underlying index, so this can under-count.
     }
 }
 

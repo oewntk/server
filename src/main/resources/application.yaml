@@ -5,7 +5,8 @@ ktor:
     modules:
       - org.oewntk.json.server.ApplicationKt.module           # main initialization module
       - org.oewntk.json.server.ApplicationKt.configureLogging # logging initialization
-      - org.oewntk.json.server.RoutingKt.configureRouting
+      - org.oewntk.json.server.RoutingKt.configureRouting     # routing
+
 model:
   path: "json_model/oewn-model.json"
   type: "json"
