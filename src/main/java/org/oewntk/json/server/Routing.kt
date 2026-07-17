@@ -26,9 +26,12 @@ fun Application.configureRouting() {
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
-        get("/apî/lex/{lemma},{key2}") {
-            val lemma = call.parameters["lemma"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing 'lemma' parameter")
-            val key2 = call.parameters["key2"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing 'key2' parameter")
+        get("/api/lex/{id}") {
+            val id = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing parameters")
+            val parts = id.split(",")
+            if (parts.size < 2) return@get call.respond(HttpStatusCode.BadRequest, "Must provide both lemma and key2 separated by a comma")
+            val lemma = parts[0]
+            val key2 = parts[1]
             lookupLex(lemma, key2)
                 ?.let { call.respond(it) }
                 ?: call.respond(HttpStatusCode.NotFound)
