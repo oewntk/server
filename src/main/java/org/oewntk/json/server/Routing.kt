@@ -25,37 +25,37 @@ fun ApplicationRequest.parsePreferHeader(): Map<String, String?> {
         }
 }
 
-suspend fun <T> respond(obj: T, call: RoutingCall, toData: (T) -> Map<String, Any>, toOEWNData: (T) -> Map<String, Any>, preferences: Map<String, String?>) {
+suspend fun <T> RoutingCall.respond(obj: T, toData: (T) -> Any, toOEWNData: (T) -> Any, preferences: Map<String, String?>) {
     val mode = preferences["mode"]
     when (mode) {
         null -> {
-            call.respond(obj as Any)
+            respond(obj as Any)
         }
 
         "model" -> {
-            call.response.header(HttpHeaders.PreferenceApplied, "mode=model")
-            call.respond(obj as Any)
+            response.header(HttpHeaders.PreferenceApplied, "mode=model")
+            respond(obj as Any)
         }
 
         "data" -> {
             val data = toData.invoke(obj)
             val method = preferences["method"]
             val response = if (method == "typed") {
-                call.response.header(HttpHeaders.PreferenceApplied, "mode=data,method=typed")
+                response.header(HttpHeaders.PreferenceApplied, "mode=data,method=typed")
                 Json.encodeToString<Value>(data.toValue())
             } else {
-                call.response.header(HttpHeaders.PreferenceApplied, "mode=data")
+                response.header(HttpHeaders.PreferenceApplied, "mode=data")
                 Json.encodeToString(AnySerializerThroughJsonElement, data)
             }
             // Respond with the raw text payload and specify the content type
-            call.respondText(response, ContentType.Application.Json)
+            respondText(response, ContentType.Application.Json)
         }
 
         "oewn" -> {
             val data = toOEWNData.invoke(obj)
-            call.response.header(HttpHeaders.PreferenceApplied, "mode=oewn")
+            response.header(HttpHeaders.PreferenceApplied, "mode=oewn")
             val response = Json.encodeToString(AnySerializerThroughJsonElement, data)
-            call.respondText(response)
+            respondText(response)
         }
     }
 }
@@ -71,38 +71,7 @@ fun Application.configureRouting() {
             val id = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing 'id' parameter")
             lookupSynset(id)
                 ?.let {
-                    val mode = preferences["mode"]
-                    when (mode) {
-                        null -> {
-                            call.respond(it)
-                        }
-
-                        "model" -> {
-                            call.response.header(HttpHeaders.PreferenceApplied, "mode=model")
-                            call.respond(it)
-                        }
-
-                        "data" -> {
-                            val data = it.toData()
-                            val method = preferences["method"]
-                            val response = if (method == "typed") {
-                                call.response.header(HttpHeaders.PreferenceApplied, "mode=data,method=typed")
-                                Json.encodeToString<Value>(data.toValue())
-                            } else {
-                                call.response.header(HttpHeaders.PreferenceApplied, "mode=data")
-                                Json.encodeToString(AnySerializerThroughJsonElement, data)
-                            }
-                            // Respond with the raw text payload and specify the content type
-                            call.respondText(response, ContentType.Application.Json)
-                        }
-
-                        "oewn" -> {
-                            val data = it.toOEWNData()
-                            call.response.header(HttpHeaders.PreferenceApplied, "mode=oewn")
-                            val response = Json.encodeToString(AnySerializerThroughJsonElement, data)
-                            call.respondText(response)
-                        }
-                    }
+                    call.respond(it, Synset::toData, Synset::toOEWNData, preferences)
                 } ?: call.respond(HttpStatusCode.NotFound)
         }
 
@@ -111,7 +80,7 @@ fun Application.configureRouting() {
             val id =
                 call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing 'id' parameter")
             lookupSense(id)
-                ?.let { call.respond(it) }
+                ?.let { call.respond(it, Sense::toData, Sense::toOEWNData, preferences) }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
@@ -126,17 +95,25 @@ fun Application.configureRouting() {
             val lemma = parts[0]
             val key2 = parts[1]
             lookupLex(lemma, key2)
-                ?.let { call.respond(it) }
+                ?.let { call.respond(it, Lex::toData, { lex -> lex.toOEWNData(model.senseResolver) }, preferences) }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
         get("/api/word/{lemma}") {
+            val preferences = call.request.parsePreferHeader()
             val lemma = call.parameters["lemma"] ?: return@get call.respond(
                 HttpStatusCode.BadRequest,
                 "Missing 'lemma' parameter"
             )
             lookupWord(lemma)
-                ?.let { call.respond(it) }
+                ?.let {
+                    call.respond(
+                        it,
+                        { lexes -> lexes.map(Lex::toData).toList() },
+                        { lexes -> lexes.map { lex -> lex.toOEWNData(model.senseResolver) }.toList() },
+                        preferences
+                    )
+                }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
