@@ -299,7 +299,7 @@
                         </goals>
                         <configuration>
                             <outputType>dot</outputType>
-                            <outputFile>images/grind.dot</outputFile>
+                            <outputFile>images/server.dot</outputFile>
                         </configuration>
                     </execution>
                 </executions>
