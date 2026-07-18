@@ -10,8 +10,6 @@ on_err() {
 }
 trap on_err ERR
 
-source define_colors.sh
-
 jar=oewn-server-3.0.1-uber.jar
 if [ ! -e "${jar}" ]; then
   if [ ! -e "target/${jar}" ]; then
