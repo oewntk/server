@@ -48,7 +48,7 @@ fun Application.module() {
             // Prevents crashes if client sends unknown fields
             ignoreUnknownKeys = true
             // Nice formatting
-            prettyPrint = true
+            prettyPrint = false
         })
     }
 }
