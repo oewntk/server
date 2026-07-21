@@ -1,18 +1,13 @@
 package org.oewntk.json.server
 
-import io.ktor.http.ContentType
-import io.ktor.serialization.kotlinx.json.DefaultJson
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.calllogging.*
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.contextual
-import org.oewntk.json.out.AnySerializerThroughJsonElement
-import org.slf4j.event.Level
 import org.oewntk.model.Model
+import org.slf4j.event.Level
 import java.io.File
 import org.oewntk.json.`in`.model.Factory as JsonModelFactory
 import org.oewntk.yaml.`in`.Factory as YamlFactory
