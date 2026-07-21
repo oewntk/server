@@ -18,10 +18,10 @@ Here's a list of features included in this project:
 To build or run the project, use one of the following tasks:
 
 
-| Task | Description |
-|------|-------------|
-| `./mvnw test`                                                         | Run the tests     |
-| `./mvnw package`                                                      | Build the project |
+| Task                                                       | Description       |
+|------------------------------------------------------------|-------------------|
+| `./mvnw test`                                              | Run the tests     |
+| `./mvnw package`                                           | Build the project |
 | `java -jar target/server`-0.0.1-jar-with-dependencies.jar` | Run the server    |
 
 If the server starts successfully, you'll see the following output:
