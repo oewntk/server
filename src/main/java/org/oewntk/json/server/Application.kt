@@ -46,13 +46,14 @@ fun Application.module() {
 
     // content negotiation configuration
     install(ContentNegotiation) {
-        json()
         json(Json {
             // This drops the null values from JSON responses
             explicitNulls = false
 
             // Prevents crashes if client sends unknown fields
             ignoreUnknownKeys = true
+            // Nice formatting
+            prettyPrint = true
         })
     }
 }
