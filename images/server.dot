@@ -20,7 +20,6 @@ digraph "io.github.oewntk:oewn-server:jar:3.0.1" {
 	"io.github.oewntk:oewn-server:jar:3.0.1" -> "io.ktor:ktor-client-content-negotiation:jar:3.5.1:test" ; 
 	"io.github.oewntk:oewn-server:jar:3.0.1" -> "io.ktor:ktor-client-logging:jar:3.5.1:test" ; 
 	"io.github.oewntk:oewn-server:jar:3.0.1" -> "io.ktor:ktor-server-test-host-jvm:jar:3.5.1:test" ; 
-	"io.github.oewntk:oewn-server:jar:3.0.1" -> "org.jetbrains.kotlin:kotlin-test:jar:2.4.0:test" ; 
 	"io.github.oewntk:model:jar:3.0.1:compile" -> "org.jetbrains.kotlinx:kotlinx-serialization-core:jar:1.7.3:compile" ; 
 	"org.jetbrains.kotlinx:kotlinx-serialization-core:jar:1.7.3:compile" -> "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:jar:1.7.3:compile" ; 
 	"io.github.oewntk:fromyaml:jar:3.0.1:compile" -> "org.yaml:snakeyaml:jar:2.6:compile" ; 
@@ -73,6 +72,7 @@ digraph "io.github.oewntk:oewn-server:jar:3.0.1" {
 	"org.jetbrains.kotlinx:kotlinx-cli-jvm:jar:0.3.6:compile" -> "org.jetbrains.kotlin:kotlin-stdlib-jdk8:jar:1.9.10:compile" ; 
 	"org.jetbrains.kotlinx:kotlinx-cli-jvm:jar:0.3.6:compile" -> "org.jetbrains.kotlin:kotlin-stdlib-common:jar:1.9.10:runtime" ; 
 	"org.jetbrains.kotlin:kotlin-stdlib-jdk8:jar:1.9.10:compile" -> "org.jetbrains.kotlin:kotlin-stdlib-jdk7:jar:1.9.10:compile" ; 
+	"org.jetbrains.kotlin:kotlin-test-junit5:jar:2.4.0:test" -> "org.jetbrains.kotlin:kotlin-test:jar:2.4.0:test" ; 
 	"org.jetbrains.kotlin:kotlin-test-junit5:jar:2.4.0:test" -> "org.junit.jupiter:junit-jupiter-api:jar:5.10.1:test" ; 
 	"org.jetbrains.kotlin:kotlin-test-junit5:jar:2.4.0:test" -> "org.junit.jupiter:junit-jupiter-engine:jar:5.10.1:test" ; 
 	"org.jetbrains.kotlin:kotlin-test-junit5:jar:2.4.0:test" -> "org.junit.platform:junit-platform-launcher:jar:1.10.1:test" ; 
