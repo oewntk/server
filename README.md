@@ -11,6 +11,8 @@ This is a JSON-API based server.
 
 Project [server](https://github.com/oewntk/server)
 
+Project [client](https://github.com/oewntk/client)
+
 # OEWN JSON API
 
 JSON-API based server.
@@ -44,3 +46,7 @@ JSON-API based server.
 		<groupId>io.github.oewntk</groupId>
 		<artifactId>server</artifactId>
 		<version>3.0.1</version>
+
+## Dependencies
+
+![Dependencies](images/server.dot  "Dependencies")
