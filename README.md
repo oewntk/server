@@ -1,31 +1,46 @@
-# server
+<p align="center">
+<img width="256" height="256" src="images/oewntk.png" alt="OEWNTK">
+</p>
+<p align="center">
+<img width="150" src="images/mavencentral.png" alt="MavenCentral">
+</p>
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+# OEWN JSON API server
 
-Here are some useful links to get you started:
- * [Ktor Documentation](https://ktor.io/docs/home.html)
- * [Ktor GitHub page](https://github.com/ktorio/ktor)
- * [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). [Request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up).
+This is a JSON-API based server.
 
+Project [server](https://github.com/oewntk/server)
 
-## Features
-Here's a list of features included in this project:
+# OEWN JSON API
 
-| Name | Description |
-|------|-------------|
+JSON-API based server.
 
-## Building & Running
-To build or run the project, use one of the following tasks:
+|Request|URL               |Parameter                         |Returns             |
+|-------|------------------|----------------------------------|--------------------|
+|get    |/                 |none                              |"OEWN"              |      
+|get    |/api/synset/{id}  |synsetid                          |synset              | 
+|get    |/api/sense/{id}   |sensekey                          |sense               |
+|get    |/api/lex/{id}     |lemma,part-of-speech[discriminant]|lex (unique)        | 
+|get    |/api/word/{lemma} |lemma                             |collection of lexes |
 
+*discriminant* differentiates entries having same part-of-speech but different properties (like pronunciation). It starts with a dash and ends with a number.
 
-| Task                                                       | Description       |
-|------------------------------------------------------------|-------------------|
-| `./mvnw test`                                              | Run the tests     |
-| `./mvnw package`                                           | Build the project |
-| `java -jar target/server`-0.0.1-jar-with-dependencies.jar` | Run the server    |
+# Prefer request header
 
-If the server starts successfully, you'll see the following output:
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
-```
+|Prefer header           |Returns                          |
+|------------------------|---------------------------------|
+|none                    |model                            |  
+|mode=model              |model                            | 
+|mode=oewn               |oewn (sense embedded within lex) | 
+|mode=data               |flat data                        | 
+|mode=data,method=typed" |flat typed data                  | 
+
+## Dataflow
+
+![Dataflow](images/dataflow_server_client.png  "Dataflow")
+
+## Maven Central
+
+		<groupId>io.github.oewntk</groupId>
+		<artifactId>server</artifactId>
+		<version>3.0.1</version>
