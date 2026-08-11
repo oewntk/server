@@ -95,7 +95,7 @@ fun Application.configureRouting() {
             val lemma = parts[0]
             val key2 = parts[1]
             lookupLex(lemma, key2)
-                ?.let { call.respond(it, Lex::toData, { lex -> lex.toOEWNData(model.senseResolver) }, preferences) }
+                ?.let { call.respond(it, Lex::toData, { lex -> lex.toOEWNDataValue(model.senseResolver) }, preferences) }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
