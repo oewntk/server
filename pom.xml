@@ -7,7 +7,7 @@
 
     <groupId>io.github.oewntk</groupId>
     <artifactId>oewn-server</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.1-SNAPSHOT</version>
     <name>JSON server</name>
     <description>JSON server.</description>
     <url>https://github.com/oewntk/server</url>
@@ -25,27 +25,27 @@
         <dependency>
             <groupId>io.github.oewntk</groupId>
             <artifactId>model</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.oewntk</groupId>
             <artifactId>fromyaml</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.oewntk</groupId>
             <artifactId>fromjson</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.oewntk</groupId>
             <artifactId>toyaml</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.oewntk</groupId>
             <artifactId>tojson</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <!-- Ktor server core + engine -->
         <dependency>
