@@ -117,24 +117,36 @@ fun Application.configureRouting() {
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
-        get("/api/start/{start}") {
+        get("/api/starts/{start}") {
             val start = call.parameters["start"] ?: return@get call.respond(
                 HttpStatusCode.BadRequest,
                 "Missing 'start' parameter"
             )
-            lookupStart(start)
+            lookupStarts(start)
                 ?.let {
                     call.respond(it)
                 }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
-        get("/api/include/{include}") {
+        get("/api/contains/{include}") {
             val include = call.parameters["include"] ?: return@get call.respond(
                 HttpStatusCode.BadRequest,
                 "Missing 'include' parameter"
             )
-            lookupInclude(include)
+            lookupContains(include)
+                ?.let {
+                    call.respond(it)
+                }
+                ?: call.respond(HttpStatusCode.NotFound)
+        }
+
+        get("/api/matches/{regex}") {
+            val regex = call.parameters["regex"] ?: return@get call.respond(
+                HttpStatusCode.BadRequest,
+                "Missing 'regex' parameter"
+            )
+            lookupMatches(regex)
                 ?.let {
                     call.respond(it)
                 }
@@ -169,7 +181,7 @@ fun lookupWord(word: String): Collection<Lex>? {
     return model.lexFinder(word)
 }
 
-fun lookupStart(start: String): Collection<Lemma>? {
+fun lookupStarts(start: String): Collection<Lemma>? {
     return model.lexes
         .map(Lex::lemma)
         .filter { it.startsWith(start) }
@@ -177,7 +189,7 @@ fun lookupStart(start: String): Collection<Lemma>? {
         .ifEmpty { null }
 }
 
-fun lookupStartIgnoreCase(start: String): Collection<Lemma>? {
+fun lookupStartsIgnoreCase(start: String): Collection<Lemma>? {
     val lcStart = start.lowercase()
     return model.lexes
         .map(Lex::lCLemma)
@@ -186,7 +198,7 @@ fun lookupStartIgnoreCase(start: String): Collection<Lemma>? {
         .ifEmpty { null }
 }
 
-fun lookupInclude(start: String): Collection<Lemma>? {
+fun lookupContains(start: String): Collection<Lemma>? {
     return model.lexes
         .map(Lex::lemma)
         .filter { it.contains(start) }
@@ -194,11 +206,21 @@ fun lookupInclude(start: String): Collection<Lemma>? {
         .ifEmpty { null }
 }
 
-fun lookupIncludeIgnoreCase(start: String): Collection<Lemma>? {
+fun lookupIContainsIgnoreCase(start: String): Collection<Lemma>? {
     val lcStart = start.lowercase()
     return model.lexes
         .map(Lex::lCLemma)
         .filter { it.contains(lcStart) }
+        .sorted()
+        .ifEmpty { null }
+}
+
+
+fun lookupMatches(regex: String): Collection<Lemma>? {
+    val re = regex.toRegex()
+    return model.lexes
+        .map(Lex::lemma)
+        .filter { re.matches(it) }
         .sorted()
         .ifEmpty { null }
 }
