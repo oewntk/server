@@ -117,6 +117,30 @@ fun Application.configureRouting() {
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
+        get("/api/start/{start}") {
+            val start = call.parameters["start"] ?: return@get call.respond(
+                HttpStatusCode.BadRequest,
+                "Missing 'start' parameter"
+            )
+            lookupStart(start)
+                ?.let {
+                    call.respond(it)
+                }
+                ?: call.respond(HttpStatusCode.NotFound)
+        }
+
+        get("/api/include/{include}") {
+            val include = call.parameters["include"] ?: return@get call.respond(
+                HttpStatusCode.BadRequest,
+                "Missing 'include' parameter"
+            )
+            lookupInclude(include)
+                ?.let {
+                    call.respond(it)
+                }
+                ?: call.respond(HttpStatusCode.NotFound)
+        }
+
         // GET /api/lemma/{lemma} Full synset records for a lemma. Returns the full synset record (definitions, relations, other members, ...) for every synset that has a sense for the exact given lemma (across every part of speech).
         // GET /api/synset/{id} Full synset record by id. The synset, or null if no synset has that id.
         // GET /api/by_lemma/{lemma} Synset ids for a lemma. Like /api/lemma/{lemma}, but returns just the matching synset ids instead of the full synset record for each.
@@ -143,4 +167,38 @@ fun lookupLex(lemma: Lemma, key2: Key2): Lex? {
 
 fun lookupWord(word: String): Collection<Lex>? {
     return model.lexFinder(word)
+}
+
+fun lookupStart(start: String): Collection<Lemma>? {
+    return model.lexes
+        .map(Lex::lemma)
+        .filter { it.startsWith(start) }
+        .sorted()
+        .ifEmpty { null }
+}
+
+fun lookupStartIgnoreCase(start: String): Collection<Lemma>? {
+    val lcStart = start.lowercase()
+    return model.lexes
+        .map(Lex::lCLemma)
+        .filter { it.startsWith(lcStart) }
+        .sorted()
+        .ifEmpty { null }
+}
+
+fun lookupInclude(start: String): Collection<Lemma>? {
+    return model.lexes
+        .map(Lex::lemma)
+        .filter { it.contains(start) }
+        .sorted()
+        .ifEmpty { null }
+}
+
+fun lookupIncludeIgnoreCase(start: String): Collection<Lemma>? {
+    val lcStart = start.lowercase()
+    return model.lexes
+        .map(Lex::lCLemma)
+        .filter { it.contains(lcStart) }
+        .sorted()
+        .ifEmpty { null }
 }
