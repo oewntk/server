@@ -37,6 +37,27 @@ JSON-API based server.
 | mode=data              | flat data                        | 
 | mode=data,method=typed | flat typed data                  | 
 
+## Launch configuration
+
+You can override parameters from application.yaml at runtime by passing -P: arguments to your application jar, or by passing JVM system properties with -D
+
+`java -jar oewn-server-3.0.1-uber.jar -P:ktor.deployment.port=9090
+`
+
+`java -jar oewn-server-3.0.1-uber.jar -P:model.path=oewn-model.json -P:model.type=json -P:model.subtype=model
+`
+
+`java -jar oewn-server-3.0.1-uber.jar -P:model.path=yaml_model -P:model.type=yaml
+`
+ The relevant parameters are:
+
+| Parameter            | Uses                            | Default         |
+|----------------------|---------------------------------|-----------------|
+| ktor.deployment.port | the port the server listens on  | 8080            | 
+| model.path           | model                           | oewn-model.json |
+| model.type           | json \| yaml                    | json            |
+| model.subtype        | json format (model\|data\|oewn) | model           |
+
 ## Dataflow
 
 ![Dataflow](images/dataflow_server_client.png  "Dataflow")
