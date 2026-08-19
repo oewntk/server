@@ -8,6 +8,6 @@ ktor:
       - org.oewntk.json.server.RoutingKt.configureRouting     # routing
 
 model:
-  path: "json_model/oewn-model.json"
+  path: "oewn-model.json"
   type: "json"
   subtype: "model"
