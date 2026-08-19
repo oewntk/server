@@ -16,4 +16,6 @@
 **/*.log
 **/build
 
+**/*model*.*
+
 /dependency-reduced-pom.xml
