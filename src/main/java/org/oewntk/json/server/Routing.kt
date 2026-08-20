@@ -153,15 +153,17 @@ fun Application.configureRouting() {
                 ?: call.respond(HttpStatusCode.NotFound)
         }
 
-        // GET /api/lemma/{lemma} Full synset records for a lemma. Returns the full synset record (definitions, relations, other members, ...) for every synset that has a sense for the exact given lemma (across every part of speech).
-        // GET /api/synset/{id} Full synset record by id. The synset, or null if no synset has that id.
-        // GET /api/by_lemma/{lemma} Synset ids for a lemma. Like /api/lemma/{lemma}, but returns just the matching synset ids instead of the full synset record for each.
-
-        // GET /api/autocomplete/{query} Search-as-you-type suggestions. Matches query as a prefix against lemmas, bare synset ids (with or without the oewn- prefix used in the RDF/XML/Turtle exports), and ILIs. Results are sorted case-insensitively by display text.
-
-        // GET /api/senses/{id}/concordance Corpus concordance for a synset. Matches query as a prefix against lemmas, bare synset ids (with or without the oewn- prefix used in the RDF/XML/Turtle exports), and ILIs. Results are sorted case-insensitively by display text.
-        // GET /api/senses/{id}/count Approximate corpus occurrence count for a synset. One page of keyword-in-context (KWIC) rows from the Semcor corpus for every sense tagged with this synset id. page is 0-indexed and clamps to the last page rather than erroring if out of range.
-        // GET /api/senses/{id} Corpus document ids for a synset. Sorted, deduplicated ids of every Semcor document containing at least one token tagged with this synset id. Documents where the only occurrence is packed into a ;-joined multi-key token are not found by the underlying index, so this can under-count.
+        get("/api/schema/{schema}") {
+            val schema = call.parameters["schema"] ?: return@get call.respond(
+                HttpStatusCode.BadRequest,
+                "Missing 'schema' parameter"
+            )
+            lookupSchema(schema)
+                ?.let {
+                    call.respond(it)
+                }
+                ?: call.respond(HttpStatusCode.NotFound)
+        }
     }
 }
 
@@ -215,7 +217,6 @@ fun lookupIContainsIgnoreCase(start: String): Collection<Lemma>? {
         .ifEmpty { null }
 }
 
-
 fun lookupMatches(regex: String): Collection<Lemma>? {
     val re = regex.toRegex()
     return model.lexes
@@ -224,3 +225,36 @@ fun lookupMatches(regex: String): Collection<Lemma>? {
         .sorted()
         .ifEmpty { null }
 }
+
+fun lookupSchema(schema: String): String? {
+    return when {
+        schema in setOf("oewn", "data", "model") -> lookupSchema2(schema)
+        schema in setOf("frames", "templates") -> lookupSchema1("schema-$schema")
+        schema.startsWith("schema") || schema.startsWith("defs") -> lookupSchema1(schema)
+        else -> null
+    }
+}
+
+fun lookupSchema1(schema: String): String? {
+    val schemaName = "$schema.json"
+    return text("/schema/$schemaName")
+}
+
+fun lookupSchema2(schemaGroup: String): String? {
+    val mainSchemaName = "schema-$schemaGroup.json"
+    val defSchemaName = "defs-$schemaGroup.json"
+    val mainSchema = text("/schema/$mainSchemaName")
+    val defsSchema = text("/schema/$defSchemaName")
+    return if (mainSchema != null && defsSchema != null) """
+{
+"$mainSchemaName": { 
+$mainSchema 
+}
+"$defSchemaName": { 
+$defsSchema 
+}
+}"""
+    else null
+}
+
+private fun text(path: String): String? = object {}.javaClass.getResource(path)?.readText()
