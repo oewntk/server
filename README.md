@@ -17,17 +17,22 @@ Project [client](https://github.com/oewntk/client)
 
 JSON-API based server.
 
-| Request | URL               | Parameter                          | Returns             |
-|---------|-------------------|------------------------------------|---------------------|
-| get     | /                 | none                               | "OEWN"              |      
-| get     | /api/synset/{id}  | synsetid                           | synset              | 
-| get     | /api/sense/{id}   | sensekey                           | sense               |
-| get     | /api/lex/{id}     | lemma,part-of-speech[discriminant] | lex (unique)        | 
-| get     | /api/word/{lemma} | lemma                              | collection of lexes |
+| Request | URL                        | Parameter                                       | Returns                 |
+|---------|----------------------------|-------------------------------------------------|-------------------------|
+| get     | /                          | none                                            | "OEWN"                  |      
+| get     | /api/synset/{id}           | synsetid                                        | synset                  | 
+| get     | /api/sense/{id}            | sensekey                                        | sense                   |
+| get     | /api/lex/{id}              | lemma,part-of-speech[discriminant]              | lex (unique)            | 
+| get     | /api/word/{lemma}          | lemma                                           | collection of lexes     |
+| get     | /api/starts/{prefix}       | prefix string                                   | collection of lemmas    | 
+| get     | /api/contains/{substring}  | contained string                                | collection of lemmas    |
+| get     | /api/matches/lex/{regex}   | regex to match                                  | collection of lemmas    | 
+| get     | /api/schema/{schema}       | schema name: (schema\|defs)-(oewn\|data\|model) | schema                |
+| get     | /api/schema/{schema class} | schema class name: (oewn\|data\|model)          | dictionary of schemas   |
 
 *discriminant* differentiates entries having same part-of-speech but different properties (like pronunciation). It starts with a dash and ends with a number.
 
-# Prefer request header
+# 'Prefer' request header
 
 | Prefer header          | Returns                          |
 |------------------------|----------------------------------|

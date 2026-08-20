@@ -1,4 +1,4 @@
-# server
+# OEWNTK server
 
 This project was created using the [Ktor Project Generator](https://start.ktor.io).
 
@@ -7,22 +7,15 @@ Here are some useful links to get you started:
  * [Ktor GitHub page](https://github.com/ktorio/ktor)
  * [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). [Request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up).
 
-
-## Features
-Here's a list of features included in this project:
-
-| Name | Description |
-|------|-------------|
-
 ## Building & Running
 To build or run the project, use one of the following tasks:
 
 
-| Task                                                       | Description       |
-|------------------------------------------------------------|-------------------|
-| `./mvnw test`                                              | Run the tests     |
-| `./mvnw package`                                           | Build the project |
-| `java -jar target/server`-0.0.1-jar-with-dependencies.jar` | Run the server    |
+| Task                                            | Description       |
+|-------------------------------------------------|-------------------|
+| `./mvnw test`                                   | Run the tests     |
+| `./mvnw package`                                | Build the project |
+| `java -jar target/oewn-server`-3.0.1--uber.jar` | Run the server    |
 
 If the server starts successfully, you'll see the following output:
 ```
