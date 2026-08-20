@@ -1,0 +1,453 @@
+{
+  "$defs": {
+    "synsetId": {
+      "type": "string",
+      "pattern": "^\\d{8}-[nvars]$"
+    },
+    "lemma": {
+      "type": "string",
+      "pattern": "^[a-zA-Z\\u00C0-\\u00D6\\u00D8-\\u00F60-9 \\-.+,!/':]+$"
+    },
+    "part-of-speech": {
+      "type": "string",
+      "enum": [
+        "n",
+        "v",
+        "a",
+        "r"
+      ]
+    },
+    "synsetType": {
+      "type": "string",
+      "enum": [
+        "n",
+        "v",
+        "a",
+        "r",
+        "s"
+      ]
+    },
+    "discriminant": {
+      "type": "string"
+    },
+    "lexId": {
+      "type": "object",
+      "properties": {
+        "lemma": {
+          "$ref": "#/$defs/lemma"
+        },
+        "partOfSpeech": {
+          "$ref": "#/$defs/part-of-speech"
+        },
+        "discriminant": {
+          "$ref": "#/$defs/discriminant"
+        }
+      },
+      "required": [
+        "lemma",
+        "partOfSpeech"
+      ],
+      "additionalProperties": false
+    },
+    "senseKey": {
+      "type": "string",
+      "pattern": "^[a-zA-Z\\u00C0-\\u00D6\\u00D8-\\u00F60-9 \\-.+,!/':_]+%\\d+:\\d+:\\d+:[a-z0-9_'/\\-.]*:\\d*$"
+    },
+    "synsetRelation": {
+      "type": "string",
+      "enum": [
+        "also",
+        "attribute",
+        "causes",
+        "domain_region",
+        "domain_topic",
+        "entails",
+        "exemplifies",
+        "has_domain_region",
+        "has_domain_topic",
+        "holo_member",
+        "holo_part",
+        "holo_substance",
+        "hypernym",
+        "hyponym",
+        "instance_hypernym",
+        "instance_hyponym",
+        "is_caused_by",
+        "is_entailed_by",
+        "is_exemplified_by",
+        "mero_member",
+        "mero_part",
+        "mero_substance",
+        "other",
+        "similar"
+      ]
+    },
+    "senseRelation": {
+      "type": "string",
+      "enum": [
+        "also",
+        "antonym",
+        "collocation",
+        "derivation",
+        "domain_region",
+        "domain_topic",
+        "exemplifies",
+        "has_domain_region",
+        "has_domain_topic",
+        "is_exemplified_by",
+        "other",
+        "participle",
+        "pertainym",
+        "similar",
+        "agent",
+        "body_part",
+        "by_means_of",
+        "destination",
+        "direction",
+        "event",
+        "instrument",
+        "location",
+        "material",
+        "patient",
+        "property",
+        "result",
+        "state",
+        "undergoer",
+        "uses",
+        "vehicle"
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "Tops",
+        "act",
+        "all",
+        "animal",
+        "artifact",
+        "attribute",
+        "body",
+        "change",
+        "cognition",
+        "communication",
+        "competition",
+        "consumption",
+        "contact",
+        "creation",
+        "emotion",
+        "event",
+        "feeling",
+        "food",
+        "group",
+        "location",
+        "motion",
+        "motive",
+        "object",
+        "perception",
+        "person",
+        "pert",
+        "phenomenon",
+        "plant",
+        "possession",
+        "ppl",
+        "process",
+        "quantity",
+        "relation",
+        "shape",
+        "social",
+        "state",
+        "stative",
+        "substance",
+        "time",
+        "weather"
+      ]
+    },
+    "lexFile": {
+      "type": "string",
+      "enum": [
+        "adj.all",
+        "adj.pert",
+        "adj.ppl",
+        "adv.all",
+        "noun.act",
+        "noun.animal",
+        "noun.artifact",
+        "noun.attribute",
+        "noun.body",
+        "noun.cognition",
+        "noun.communication",
+        "noun.event",
+        "noun.feeling",
+        "noun.food",
+        "noun.group",
+        "noun.location",
+        "noun.motive",
+        "noun.object",
+        "noun.person",
+        "noun.phenomenon",
+        "noun.plant",
+        "noun.possession",
+        "noun.process",
+        "noun.quantity",
+        "noun.relation",
+        "noun.shape",
+        "noun.state",
+        "noun.substance",
+        "noun.time",
+        "noun.Tops",
+        "verb.body",
+        "verb.change",
+        "verb.cognition",
+        "verb.communication",
+        "verb.competition",
+        "verb.consumption",
+        "verb.contact",
+        "verb.creation",
+        "verb.emotion",
+        "verb.motion",
+        "verb.perception",
+        "verb.possession",
+        "verb.social",
+        "verb.stative",
+        "verb.weather"
+      ]
+    },
+    "example": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "source"
+          ]
+        }
+      ]
+    },
+    "adjPosition": {
+      "type": "string",
+      "enum": [
+        "a",
+        "p",
+        "ip"
+      ]
+    },
+    "tagCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "wikidata": {
+      "type": "string",
+      "pattern": "^Q[0-9]+(;Q[0-9]+)*$"
+    },
+    "ili": {
+      "type": "string",
+      "pattern": "^(?:i\\d+|in)$",
+      "description": "Interlingual Index id: 'i' followed by digits, or the literal 'in' (not-in-ILI marker)."
+    },
+    "lex": {
+      "type": "object",
+      "properties": {
+        "lemma": {
+          "$ref": "#/$defs/lemma"
+        },
+        "partOfSpeech": {
+          "$ref": "#/$defs/part-of-speech"
+        },
+        "discriminant": {
+          "$ref": "#/$defs/discriminant"
+        },
+        "sense": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/senseKey"
+          }
+        },
+        "pronunciation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "variety": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "form": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "lemma",
+        "partOfSpeech",
+        "sense"
+      ],
+      "additionalProperties": false
+    },
+    "synset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/synsetId"
+        },
+        "type": {
+          "$ref": "#/$defs/synsetType"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "member": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lemma"
+          }
+        },
+        "definition": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/example"
+          }
+        },
+        "usage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relation": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/synsetRelation"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/synsetId"
+            }
+          }
+        },
+        "ili": {
+          "$ref": "#/$defs/ili"
+        },
+        "wikidata": {
+          "$ref": "#/$defs/wikidata"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "domain",
+        "member",
+        "definition"
+      ],
+      "additionalProperties": false
+    },
+    "sense": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/senseKey"
+        },
+        "lemma": {
+          "$ref": "#/$defs/lemma"
+        },
+        "partOfSpeech": {
+          "$ref": "#/$defs/part-of-speech"
+        },
+        "discriminant": {
+          "$ref": "#/$defs/discriminant"
+        },
+        "synset": {
+          "$ref": "#/$defs/synsetId"
+        },
+        "index": {
+          "type": "number",
+          "minimum": 0
+        },
+        "relation": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/senseRelation"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/senseKey"
+            }
+          }
+        },
+        "tagcount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "example": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/example"
+          }
+        },
+        "adjPosition": {
+          "$ref": "#/$defs/adjPosition"
+        },
+        "verbFrame": {
+          "type": "string"
+        },
+        "verbTemplate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "lemma",
+        "partOfSpeech",
+        "synset"
+      ],
+      "additionalProperties": false
+    },
+    "verbFrame": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "verbTemplate": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^\\d+$"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oewntk.githumb.io/schema/data",
+  "title": "flat data format",
+  "description": "flat data format (lex does not embed sense)",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/data"
+    },
+    {
+      "$ref": "#/$defs/grouped_by_object_type"
+    }
+  ],
+  "$defs": {
+    "data": {
+      "anyOf": [
+        {
+          "type": "object",
+          "anyOf": [
+            {
+              "$ref": "defs-data.json#/$defs/lex"
+            },
+            {
+              "$ref": "defs-data.json#/$defs/synset"
+            },
+            {
+              "$ref": "defs-data.json#/$defs/sense"
+            },
+            {
+              "$ref": "defs-data.json#/$defs/verbFrame"
+            },
+            {
+              "$ref": "defs-data.json#/$defs/verbTemplate"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "defs-data.json#/$defs/lex"
+              },
+              {
+                "$ref": "defs-data.json#/$defs/synset"
+              },
+              {
+                "$ref": "defs-data.json#/$defs/sense"
+              },
+              {
+                "$ref": "defs-data.json#/$defs/verbFrame"
+              },
+              {
+                "$ref": "defs-data.json#/$defs/verbTemplate"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "grouped_by_object_type": {
+      "type": "object",
+      "properties": {
+        "lexes": {
+          "type": "array",
+          "items": {
+            "$ref": "defs-data.json#/$defs/lex"
+          }
+        },
+        "synsets": {
+          "type": "array",
+          "items": {
+            "$ref": "defs-data.json#/$defs/synset"
+          }
+        },
+        "senses": {
+          "type": "array",
+          "items": {
+            "$ref": "defs-data.json#/$defs/sense"
+          }
+        },
+        "verbFrames": {
+          "type": "array",
+          "items": {
+            "$ref": "defs-data.json#/$defs/verbFrame"
+          }
+        },
+        "verbTemplates": {
+          "type": "array",
+          "items": {
+            "$ref": "defs-data.json#/$defs/verbTemplate"
+          }
+        }
+      },
+      "required": [
+        "lexes",
+        "synsets",
+        "senses"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

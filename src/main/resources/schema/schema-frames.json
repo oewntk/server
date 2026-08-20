@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oewntk.githumb.io/schema/frames",
+  "title": "frames",
+  "description": "verb frames",
+  "$ref": "#/$defs/data",
+  "$defs": {
+    "data": {
+      "anyOf": [
+        {
+          "$ref": "defs-data.json#/$defs/verbFrame"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "defs-data.json#/$defs/verbFrame"
+          }
+        }
+      ]
+    }
+  }
+}

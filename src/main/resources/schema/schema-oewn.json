@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oewntk.githumb.io/schema/oewn",
+  "title": "oewn format",
+  "description": "oewn format (lex embeds sense)",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/data"
+    },
+    {
+      "$ref": "#/$defs/grouped_by_key"
+    },
+    {
+      "$ref": "#/$defs/grouped_by_object_type"
+    }
+  ],
+  "$defs": {
+    "data": {
+      "anyOf": [
+        {
+          "type": "object",
+          "anyOf": [
+            {
+              "$ref": "defs-oewn.json#/$defs/lex"
+            },
+            {
+              "$ref": "defs-oewn.json#/$defs/synset"
+            },
+            {
+              "$ref": "defs-oewn.json#/$defs/sense"
+            },
+            {
+              "$ref": "defs-oewn.json#/$defs/verbFrame"
+            },
+            {
+              "$ref": "defs-oewn.json#/$defs/verbTemplate"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "defs-oewn.json#/$defs/lex"
+              },
+              {
+                "$ref": "defs-oewn.json#/$defs/synset"
+              },
+              {
+                "$ref": "defs-oewn.json#/$defs/sense"
+              },
+              {
+                "$ref": "defs-oewn.json#/$defs/verbFrame"
+              },
+              {
+                "$ref": "defs-oewn.json#/$defs/verbTemplate"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "grouped_by_key": {
+      "type": "object",
+      "patternProperties": {
+        "^\\d{8}-[nvars]$": {
+          "$ref": "defs-oewn.json#/$defs/synset"
+        },
+        "^(?!\\d{8}-[nvars]$)[a-zA-Z\\u00C0-\\u00D6\\u00D8-\\u00F60-9 \\-.+,!/':]+$": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[nvar](-[0-9]+)?$"
+          },
+          "additionalProperties": {
+            "$ref": "defs-oewn.json#/$defs/lex"
+          },
+          "minProperties": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "grouped_by_object_type": {
+      "type": "object",
+      "properties": {
+        "lexes": {
+          "$ref": "#/$defs/grouped_by_key"
+        },
+        "synsets": {
+          "$ref": "#/$defs/grouped_by_key"
+        },
+        "verbFrames": {
+          "$ref": "#/$defs/grouped_by_key"
+        },
+        "verbTemplates": {
+          "$ref": "#/$defs/grouped_by_key"
+        }
+      },
+      "required": [
+        "lexes",
+        "synsets"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
