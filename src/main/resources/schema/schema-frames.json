@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://oewntk.githumb.io/schema/frames",
+  "$id": "https://oewntk.githumb.io/schema/schema-frames.json",
   "title": "frames",
   "description": "verb frames",
   "$ref": "#/$defs/data",

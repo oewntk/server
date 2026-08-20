@@ -1,4 +1,8 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oewntk.githumb.io/schema/defs-oewn.json",
+  "title": "oewn format defs",
+  "description": "defs for oewn format (lex embeds sense)",
   "$defs": {
     "synsetId": {
       "type": "string",
