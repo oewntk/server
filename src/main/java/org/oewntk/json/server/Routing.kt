@@ -69,7 +69,7 @@ fun Application.configureRouting() {
         get("/api/synset/{id}") {
             val preferences = call.request.parsePreferHeader()
             val id = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing 'id' parameter")
-            lookupSynset(id)
+            lookupSynset(SynsetId(id))
                 ?.let {
                     call.respond(it, Synset::toData, Synset::toOEWNData, preferences)
                 } ?: call.respond(HttpStatusCode.NotFound)
@@ -79,7 +79,7 @@ fun Application.configureRouting() {
             val preferences = call.request.parsePreferHeader()
             val id =
                 call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing 'id' parameter")
-            lookupSense(id)
+            lookupSense(SenseKey(id))
                 ?.let { call.respond(it, Sense::toData, Sense::toOEWNData, preferences) }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
