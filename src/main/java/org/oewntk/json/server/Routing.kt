@@ -94,7 +94,7 @@ fun Application.configureRouting() {
             )
             val lemma = parts[0]
             val key2 = parts[1]
-            lookupLex(lemma, key2)
+            lookupLex(Lemma(lemma), key2)
                 ?.let { call.respond(it, Lex::toData, { lex -> lex.toOEWNDataValue(model.senseResolver) }, preferences) }
                 ?: call.respond(HttpStatusCode.NotFound)
         }
@@ -180,13 +180,13 @@ fun lookupLex(lemma: Lemma, key2: Key2): Lex? {
 }
 
 fun lookupWord(word: String): Collection<Lex>? {
-    return model.lexFinder(word)
+    return model.lexFinder(Lemma(word))
 }
 
 fun lookupStarts(start: String): Collection<Lemma>? {
     return model.lexes
         .map(Lex::lemma)
-        .filter { it.startsWith(start) }
+        .filter { it.form.startsWith(start) }
         .sorted()
         .ifEmpty { null }
 }
@@ -195,7 +195,7 @@ fun lookupStartsIgnoreCase(start: String): Collection<Lemma>? {
     val lcStart = start.lowercase()
     return model.lexes
         .map(Lex::lCLemma)
-        .filter { it.startsWith(lcStart) }
+        .filter { it.form.startsWith(lcStart) }
         .sorted()
         .ifEmpty { null }
 }
@@ -203,7 +203,7 @@ fun lookupStartsIgnoreCase(start: String): Collection<Lemma>? {
 fun lookupContains(start: String): Collection<Lemma>? {
     return model.lexes
         .map(Lex::lemma)
-        .filter { it.contains(start) }
+        .filter { it.form.contains(start) }
         .sorted()
         .ifEmpty { null }
 }
@@ -212,7 +212,7 @@ fun lookupIContainsIgnoreCase(start: String): Collection<Lemma>? {
     val lcStart = start.lowercase()
     return model.lexes
         .map(Lex::lCLemma)
-        .filter { it.contains(lcStart) }
+        .filter { it.form.contains(lcStart) }
         .sorted()
         .ifEmpty { null }
 }
@@ -221,7 +221,7 @@ fun lookupMatches(regex: String): Collection<Lemma>? {
     val re = regex.toRegex()
     return model.lexes
         .map(Lex::lemma)
-        .filter { re.matches(it) }
+        .filter { re.matches(it.form) }
         .sorted()
         .ifEmpty { null }
 }
