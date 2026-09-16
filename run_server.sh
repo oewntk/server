@@ -10,7 +10,7 @@ on_err() {
 }
 trap on_err ERR
 
-jar=oewn-server-3.0.1-uber.jar
+jar=oewn-server-3.0.2-uber.jar
 if [ ! -e "${jar}" ]; then
   if [ ! -e "target/${jar}" ]; then
     echo "Non existing uber jar" >&2

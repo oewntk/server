@@ -15,7 +15,7 @@ To build or run the project, use one of the following tasks:
 |-------------------------------------------------|-------------------|
 | `./mvnw test`                                   | Run the tests     |
 | `./mvnw package`                                | Build the project |
-| `java -jar target/oewn-server`-3.0.1--uber.jar` | Run the server    |
+| `java -jar target/oewn-server`-3.0.2--uber.jar` | Run the server    |
 
 If the server starts successfully, you'll see the following output:
 ```
