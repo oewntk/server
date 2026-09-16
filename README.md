@@ -1,9 +1,9 @@
-<p align="center">
-<img width="256" height="256" src="images/oewntk.png" alt="OEWNTK">
-</p>
-<p align="center">
-<img width="150" src="images/mavencentral.png" alt="MavenCentral">
-</p>
+<div style="text-align: center;">
+  <img src="images/oewntk.png" alt="OEWNTK" width="256">
+</div>
+<div style="text-align: center;">
+  <img width="150" src="images/mavencentral.png" alt="MavenCentral">
+</div>
 
 # OEWN JSON API server
 
@@ -17,22 +17,22 @@ Project [client](https://github.com/oewntk/client)
 
 JSON-API based server.
 
-| Request | URL                        | Parameter                                       | Returns                 |
-|---------|----------------------------|-------------------------------------------------|-------------------------|
-| get     | /                          | none                                            | "OEWN"                  |      
-| get     | /api/synset/{id}           | synsetid                                        | synset                  | 
-| get     | /api/sense/{id}            | sensekey                                        | sense                   |
-| get     | /api/lex/{id}              | lemma,part-of-speech[discriminant]              | lex (unique)            | 
-| get     | /api/word/{lemma}          | lemma                                           | collection of lexes     |
-| get     | /api/starts/{prefix}       | prefix string                                   | collection of lemmas    | 
-| get     | /api/contains/{substring}  | contained string                                | collection of lemmas    |
-| get     | /api/matches/lex/{regex}   | regex to match                                  | collection of lemmas    | 
+| Request | URL                        | Parameter                                       | Returns               |
+|---------|----------------------------|-------------------------------------------------|-----------------------|
+| get     | /                          | none                                            | "OEWN"                |      
+| get     | /api/synset/{id}           | synsetid                                        | synset                | 
+| get     | /api/sense/{id}            | sensekey                                        | sense                 |
+| get     | /api/lex/{id}              | lemma,part-of-speech[discriminant]              | lex (unique)          | 
+| get     | /api/word/{lemma}          | lemma                                           | collection of lexes   |
+| get     | /api/starts/{prefix}       | prefix string                                   | collection of lemmas  | 
+| get     | /api/contains/{substring}  | contained string                                | collection of lemmas  |
+| get     | /api/matches/lex/{regex}   | regex to match                                  | collection of lemmas  | 
 | get     | /api/schema/{schema}       | schema name: (schema\|defs)-(oewn\|data\|model) | schema                |
-| get     | /api/schema/{schema class} | schema class name: (oewn\|data\|model)          | dictionary of schemas   |
+| get     | /api/schema/{schema class} | schema class name: (oewn\|data\|model)          | dictionary of schemas |
 
 *discriminant* differentiates entries having same part-of-speech but different properties (like pronunciation). It starts with a dash and ends with a number.
 
-# 'Prefer' request header
+## 'Prefer' request header
 
 | Prefer header          | Returns                          |
 |------------------------|----------------------------------|
@@ -54,7 +54,7 @@ You can override parameters from application.yaml at runtime by passing -P: argu
 
 `java -jar oewn-server-3.0.1-uber.jar -P:model.path=yaml_model -P:model.type=yaml
 `
- The relevant parameters are:
+The relevant parameters are:
 
 | Parameter            | Uses                            | Default         |
 |----------------------|---------------------------------|-----------------|
