@@ -23,4 +23,7 @@ if [ ! -e "${jar}" ]; then
   exit 2
   fi
 
-java -ea -cp "${jar}" org.oewntk.json.server.MainKt  -P:model.path=yaml_model -P:model.type=yaml
+# looks for yaml subdirectory in current working directory
+# use -P:model.path=<path>/yaml otherwise
+java -jar "${jar}" org.oewntk.json.server.MainKt -P:model.path=yaml -P:model.type=yaml "$*"
+#java -ea -cp "${jar}" org.oewntk.json.server.MainKt  -P:model.path=yaml_model -P:model.type=yaml "$*"

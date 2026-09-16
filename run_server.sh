@@ -23,4 +23,7 @@ if [ ! -e "${jar}" ]; then
   exit 2
   fi
 
-java -ea -cp "${jar}" org.oewntk.json.server.MainKt
+# default: looks for oewn-model.json in current working directory
+# use -P:model.path=<path>/oewn-model.json otherwise
+java -jar "${jar}" "$*"
+#java -ea -cp "${jar}" org.oewntk.json.server.MainKt "$*"
