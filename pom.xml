@@ -320,7 +320,7 @@
                                     <manifestEntries>
                                         <Build-Number>3.0.1</Build-Number>
                                     </manifestEntries>
-                                    <mainClass>org.oewntk.json.server.Main</mainClass>
+                                    <mainClass>org.oewntk.json.server.MainKt</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>
@@ -411,7 +411,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.oewntk.server.Main</mainClass>
+                    <mainClass>org.oewntk.json.server.MainKt</mainClass>
                     <arguments>
                         <argument>yaml</argument>
                         <argument>yaml2</argument>
