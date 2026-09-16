@@ -8,6 +8,11 @@
 # OEWN JSON API server
 
 This is a JSON-API based server.
+The server loads a model, and listens to clients.
+It can load models from YAML or JSON in all formats supported by **fromyaml** and **fromjson** modules.
+The recommended format, the fastest to load, is _JSON/model_.
+The server is based on the KTOR framework. Ktor is a framework for building asynchronous server-side and client-side applications.
+Specifying the expected format is done by passing a _Prefer_ header.
 
 Project [server](https://github.com/oewntk/server)
 
@@ -42,6 +47,15 @@ JSON-API based server.
 | mode=data              | flat data                        | 
 | mode=data,method=typed | flat typed data                  | 
 
+## Run
+
+An uber-jar is provided (that packs all dependencies) with a _run_server.sh_ script.
+Alternatively build a server folder with
+- oewn-server-3.0.1-uber.jar
+- a yaml subfolder that contains the release of OEWN
+Run
+`java -jar oewn-server-3.0.1-uber.jar -P:model.path=yaml_model -P:model.type=yaml
+`
 ## Launch configuration
 
 You can override parameters from application.yaml at runtime by passing -P: arguments to your application jar, or by passing JVM system properties with -D
@@ -75,4 +89,4 @@ The relevant parameters are:
 
 ## Dependencies
 
-![Dependencies](images/server.dot  "Dependencies")
+![Dependencies](images/server.png  "Dependencies")
