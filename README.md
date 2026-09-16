@@ -52,9 +52,11 @@ JSON-API based server.
 An uber-jar is provided (that packs all dependencies) with a _run_server.sh_ script.
 Alternatively build a server folder with
 - oewn-server-3.0.2-uber.jar
-- a yaml subfolder that contains the release of OEWN
+- a _yaml_ subfolder that contains the release of OEWN
+
 Run
-`java -jar oewn-server-3.0.2-uber.jar -P:model.path=yaml_model -P:model.type=yaml
+
+`java -jar oewn-server-3.0.2-uber.jar -P:model.path=yaml -P:model.type=yaml
 `
 ## Launch configuration
 
