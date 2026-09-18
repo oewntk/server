@@ -35,6 +35,7 @@ run_curl_lemma.sh
 run_curl_lex.sh
 run_curl_sense.sh
 run_curl_synset.sh
+run_curl_examples.sh
 "
 
 # M A I N
