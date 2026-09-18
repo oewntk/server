@@ -19,3 +19,6 @@
 **/*model*.*
 
 /dependency-reduced-pom.xml
+
+!_confirm.sh
+!_upload-github_release.sh
