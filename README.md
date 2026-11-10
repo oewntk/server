@@ -49,11 +49,11 @@ JSON-API based server.
 
 ## Run
 
-[Current release](https://github.com/oewntk/server/releases/tag/OEWN_Server-3.0.2) offers an uber-jar that packs all dependencies. 
+[Current release](https://github.com/oewntk/server/releases/tag/OEWN_Server-3.1.0) offers an uber-jar that packs all dependencies. 
 It can run out-of-the-box provided you have a JVM >=JDK17.
 
 Build a server folder with:
-- oewn-server-3.0.2-uber.jar
+- oewn-server-3.1.0-uber.jar
 - a _yaml_model_ subfolder that contains the [release](https://github.com/globalwordnet/english-wordnet/releases) of OEWN YAML files
 - the _run_server_yaml.sh_ or _run_server_yaml.bat_ script
 
@@ -61,7 +61,7 @@ Run the script.
 
 If you want to do without it, run the command-line:
 
-`java -jar oewn-server-3.0.2-uber.jar -P:model.path=yaml_model -P:model.type=yaml
+`java -jar oewn-server-3.1.0-uber.jar -P:model.path=yaml_model -P:model.type=yaml
 `
 
 You'll also find curl request examples as a basic client.
@@ -72,13 +72,13 @@ This [repository](https://github.com/x-englishwordnet/json) contains JSON models
 
 You can override parameters from application.yaml at runtime by passing -P: arguments to your application jar, or by passing JVM system properties with -D
 
-`java -jar oewn-server-3.0.2-uber.jar -P:ktor.deployment.port=9090
+`java -jar oewn-server-3.1.0-uber.jar -P:ktor.deployment.port=9090
 `
 
-`java -jar oewn-server-3.0.2-uber.jar -P:model.path=oewn-model.json -P:model.type=json -P:model.subtype=model
+`java -jar oewn-server-3.1.0-uber.jar -P:model.path=oewn-model.json -P:model.type=json -P:model.subtype=model
 `
 
-`java -jar oewn-server-3.0.2-uber.jar -P:model.path=yaml_model -P:model.type=yaml
+`java -jar oewn-server-3.1.0-uber.jar -P:model.path=yaml_model -P:model.type=yaml
 `
 The relevant parameters are:
 
@@ -97,7 +97,7 @@ The relevant parameters are:
 
 		<groupId>io.github.oewntk</groupId>
 		<artifactId>server</artifactId>
-		<version>3.0.2</version>
+		<version>3.1.0</version>
 
 ## Dependencies
 
